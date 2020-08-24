@@ -330,7 +330,7 @@ extension VerticalCardSwiper: UIGestureRecognizerDelegate {
      */
     @objc fileprivate func handlePan(sender: UIPanGestureRecognizer) {
         guard let direction = sender.direction, direction != .Down else {
-            setSwipedCardIfDragging(pangestureRecognizer: sender)
+            setSwipedCardIfScrollDown(pangestureRecognizer: sender)
             if swipedCard != nil {
                 self.swipedCard.resetToCenterPosition()
             }
@@ -369,6 +369,20 @@ extension VerticalCardSwiper: UIGestureRecognizerDelegate {
         let locationInCollectionView = gestureRec.location(in: verticalCardSwiperView)
 
         if let swipeArea = swipeAbleArea, swipeArea.contains(location), !verticalCardSwiperView.isScrolling {
+            if let swipedCardIndex = verticalCardSwiperView.indexPathForItem(at: locationInCollectionView) {
+                /// The card that is swipeable inside the SwipeAbleArea.
+                self.swipedCard = self.verticalCardSwiperView.cellForItem(at: swipedCardIndex) as? CardCell
+            }
+        }
+    }
+
+    fileprivate func setSwipedCardIfScrollDown(pangestureRecognizer gestureRec: UIPanGestureRecognizer) {
+        /// The taplocation relative to the superview.
+        let location = gestureRec.location(in: self)
+        /// The taplocation relative to the collectionView.
+        let locationInCollectionView = gestureRec.location(in: verticalCardSwiperView)
+
+        if let swipeArea = swipeAbleArea, swipeArea.contains(location) {
             if let swipedCardIndex = verticalCardSwiperView.indexPathForItem(at: locationInCollectionView) {
                 /// The card that is swipeable inside the SwipeAbleArea.
                 self.swipedCard = self.verticalCardSwiperView.cellForItem(at: swipedCardIndex) as? CardCell
