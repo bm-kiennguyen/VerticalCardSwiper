@@ -269,7 +269,11 @@ extension VerticalCardSwiper: UIGestureRecognizerDelegate {
 
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 
-        return false
+        if let panGestureRec = horizontalPangestureRecognizer {
+            if let direction = panGestureRec.direction, direction == .Down {
+                return false
+            }
+        }
 
         if let panGestureRec = horizontalPangestureRecognizer {
             // When a horizontal pan is detected, we make sure to disable the collectionView.panGestureRecognizer so that it doesn't interfere with the sideswipe.
