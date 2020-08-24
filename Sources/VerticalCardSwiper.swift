@@ -330,10 +330,7 @@ extension VerticalCardSwiper: UIGestureRecognizerDelegate {
      */
     @objc fileprivate func handlePan(sender: UIPanGestureRecognizer) {
         guard let direction = sender.direction, direction != .Down else {
-            setSwipedCardIfScrollDown(pangestureRecognizer: sender)
-            if swipedCard != nil {
-                self.swipedCard.resetToCenterPosition()
-            }
+            verticalCardSwiperView.removeGestureRecognizer(horizontalPangestureRecognizer)
             return
         }
 
