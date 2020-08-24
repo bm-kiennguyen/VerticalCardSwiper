@@ -329,8 +329,10 @@ extension VerticalCardSwiper: UIGestureRecognizerDelegate {
      - parameter sender: The `UIPanGestureRecognizer` that detects the pan gesture. In this case `horizontalPangestureRecognizer`.
      */
     @objc fileprivate func handlePan(sender: UIPanGestureRecognizer) {
-        guard let direction = sender.direction, direction != .Down else { 
-          self.swipedCard.resetToCenterPosition()
+        guard let direction = sender.direction, direction != .Down else {
+          if swipedCard != nil {
+            self.swipedCard.resetToCenterPosition()
+          }
           return
         }
 
