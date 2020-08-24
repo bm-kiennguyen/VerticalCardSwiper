@@ -41,7 +41,7 @@ public class VerticalCardSwiper: UIView {
             if newValue {
                 horizontalPangestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             } else {
-                verticalCardSwiperView.removeGestureRecognizer(horizontalPangestureRecognizer)
+//                verticalCardSwiperView.removeGestureRecognizer(horizontalPangestureRecognizer)
             }
         }
     }
@@ -333,6 +333,8 @@ extension VerticalCardSwiper: UIGestureRecognizerDelegate {
             verticalCardSwiperView.isScrollEnabled = false
             return
         }
+
+        verticalCardSwiperView.isScrollEnabled = true
 
         guard isSideSwipingEnabled else { return }
 
